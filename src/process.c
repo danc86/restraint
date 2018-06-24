@@ -97,6 +97,9 @@ restraint_fork (gint *fd,
            return -1;
        }
        if (pid == 0) {
+           // Reset signal handlers.  glib2 will set SIGPIPE to ignore
+           signal(SIGPIPE, SIG_DFL);
+
            // close reading side of pipe.
            close (pipefd[STDIN_FILENO]);
 
